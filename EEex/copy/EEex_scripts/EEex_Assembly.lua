@@ -511,6 +511,26 @@ function EEex_PreprocessAssembly(assemblyT, state)
 	return toReturn, state
 end
 
+function EEex_Assembly_Private_FindOffsetOf(structBinding, memberName)
+
+	local baseclassMetadataT = EEex_GetUTBaseclassMetadata(structBinding)
+	if baseclassMetadataT == nil then
+		return nil
+	end
+
+	for _, baseclassMetadata in ipairs(baseclassMetadataT) do
+		local offsetofT = rawget(baseclassMetadata.mt, ".offsetof")
+		if offsetofT ~= nil then
+			local offsetof = offsetofT[memberName]
+			if offsetof ~= nil then
+				return baseclassMetadata.offset + offsetof
+			end
+		end
+	end
+
+	return nil
+end
+
 function EEex_OffsetOf(pathStr)
 	local innerSplit = EEex_Split(pathStr, "%s*%.%s*", true)
 	if innerSplit[2] == nil then EEex_Error("#OFFSET_OF has invalid number of arguments") end
@@ -521,7 +541,7 @@ function EEex_OffsetOf(pathStr)
 	while true do
 		local structBinding = _G[curStructName]
 		if structBinding == nil then EEex_Error(string.format("Invalid usertype encountered in #OFFSET_OF: \"%s\"", curStructName)) end
-		local offsetof = structBinding["offsetof_"..curMemberName]
+		local offsetof = EEex_Assembly_Private_FindOffsetOf(structBinding, curMemberName)
 		if offsetof == nil then EEex_Error(string.format("Member missing offsetof binding in #OFFSET_OF: %s::%s", curStructName, curMemberName)) end
 		local usertype = structBinding["usertype_"..curMemberName]
 		if usertype == nil then EEex_Error(string.format("Member missing usertype binding in #OFFSET_OF: %s::%s", curStructName, curMemberName)) end
