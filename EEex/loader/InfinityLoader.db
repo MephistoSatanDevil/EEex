@@ -2175,6 +2175,10 @@ Operations=ADD -10
 Pattern=F6472004
 Operations=ADD 25
 
+[Hook-CGameEffectProtectionCircle::ApplyEffect()-AddTail]
+Pattern=488D8E001D0000
+Operations=ADD 17
+
 [Hook-CGameEffectRangeEffect::ApplyEffect()]
 Pattern=4885C9747B
 Operations=ADD -43
@@ -2186,10 +2190,6 @@ Operations=ADD 20
 [Hook-CGameEffectSaveVsDeath::ApplyEffect()-ImmediateSaveWriteOffset]
 Pattern=0F852E0100000FB687AC050000
 Operations=ADD -8
-
-[Hook-CGameEffectProtectionCircle::ApplyEffect()-SetHardcodedBonus]
-Pattern=488D8E001D0000C7471802000000488BD7
-Operations=ADD 7
 
 [Hook-CGameEffectSecondaryCastList::ApplyEffect()]
 Pattern=48895C24185556574154415541564157488D6C24D94881EC00010000
