@@ -34,7 +34,7 @@ Operations=ADD -51
 [C2DArray::Destruct]
 Pattern=40574883EC20488B4110
 
-[C2DArray::GetAtLabels]
+[C2DArray::GetAt(const CString*,const CString*)]
 Pattern=48895C2410565741564883EC20
 
 [C2DArray::Load]
@@ -573,6 +573,10 @@ Operations=ADD -17
 
 [CString::Destruct]
 Pattern=488B114883C2F4
+
+[CString::MakeUpper]
+Pattern=663B7730
+Operations=ADD -9, PUSH, READ DWORD, ADD, ADD 4
 
 [CString::operator=(CString*)]
 Pattern=488B02488BD9488B09

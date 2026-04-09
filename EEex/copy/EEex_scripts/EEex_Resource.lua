@@ -276,14 +276,7 @@ C2DArray.findColumnIndex = EEex_Resource_Find2DAColumnIndex
 -- @return { type=number }: See summary.
 
 function EEex_Resource_Find2DAColumnLabel(array, toSearchFor)
-	toSearchFor = toSearchFor:upper()
-	local pNamesX = array.m_pNamesX
-	for i = 0, array.m_nSizeX - 1 do
-		if pNamesX:getReference(i).m_pchData:get() == toSearchFor then
-			return i
-		end
-	end
-	return -1
+	return array:FindColumnLabel(toSearchFor)
 end
 C2DArray.findColumnLabel = EEex_Resource_Find2DAColumnLabel
 
@@ -323,14 +316,7 @@ C2DArray.findRowIndex = EEex_Resource_Find2DARowIndex
 -- @return { type=number }: See summary.
 
 function EEex_Resource_Find2DARowLabel(array, toSearchFor)
-	toSearchFor = toSearchFor:upper()
-	local pNamesY = array.m_pNamesY
-	for i = 0, array.m_nSizeY - 1 do
-		if pNamesY:getReference(i).m_pchData:get() == toSearchFor then
-			return i
-		end
-	end
-	return -1
+	return array:FindRowLabel(toSearchFor)
 end
 C2DArray.findRowLabel = EEex_Resource_Find2DARowLabel
 
@@ -435,14 +421,7 @@ C2DArray.getRowLabel = EEex_Resource_Get2DARowLabel
 -- @return { type=string }: See summary.
 
 function EEex_Resource_GetAt2DALabels(array, columnLabel, rowLabel)
-	local toReturn
-	EEex_RunWithStackManager({
-		{ ["name"] = "CColumnLabel", ["struct"] = "CString", ["constructor"] = {["args"] = {columnLabel} }},
-		{ ["name"] = "CRowLabel",    ["struct"] = "CString", ["constructor"] = {["args"] = {rowLabel}    }}, },
-		function(manager)
-			toReturn = array:GetAtLabels(manager:getUD("CColumnLabel"), manager:getUD("CRowLabel")).m_pchData:get()
-		end)
-	return toReturn
+	return array:GetAtLabels(columnLabel, rowLabel).m_pchData:get()
 end
 C2DArray.getAtLabels = EEex_Resource_GetAt2DALabels
 
@@ -460,9 +439,7 @@ C2DArray.getAtLabels = EEex_Resource_GetAt2DALabels
 -- @return { type=string }: See summary.
 
 function EEex_Resource_GetAt2DAPoint(array, columnIndex, rowIndex)
-	local sizeX, sizeY = array:getDimensions()
-	if columnIndex < 0 or columnIndex >= sizeX or rowIndex < 0 or rowIndex >= sizeY then return array:getDefault() end
-	return array.m_pArray:getReference(columnIndex + rowIndex * sizeX).m_pchData:get()
+	return array:GetAtPoint(columnIndex, rowIndex).m_pchData:get()
 end
 C2DArray.getAtPoint = EEex_Resource_GetAt2DAPoint
 
