@@ -4,6 +4,24 @@
 	EEex_DisableCodeProtection()
 
 	--[[
+	+-------------------------------------------------------------------------------------------------------------------------+
+	| Implement the missing WSPECIAL.2DA["SPEED"] bonus                                                                       |
+	+-------------------------------------------------------------------------------------------------------------------------+
+	|   [EEex.dll] EEex::Fix_Hook_ImplementWSPECIALSpeedColumn(pSprite: CGameSprite*, nProficiencyLevel: int, bOffHand: bool) |
+	+-------------------------------------------------------------------------------------------------------------------------+
+	--]]
+
+	EEex_HookAfterCallWithLabels(EEex_Label("Hook-CGameSprite::CheckCombatStatsWeapon()-NonZeroWeapProfCall"), {
+		{"hook_integrity_watchdog_ignore_registers", { EEex_HookIntegrityWatchdogRegister.RAX }}},
+		{[[
+			mov rcx, r14                     ; pSprite
+			movsx edx, r12w                  ; nProficiencyLevel
+			mov r8d, dword ptr ss:[rbp+0x50] ; bOffHand
+			call #L(EEex::Fix_Hook_ImplementWSPECIALSpeedColumn)
+		]]}
+	)
+
+	--[[
 	+------------------------------------------------------------------------------------------------------------------------+
 	| BUG: v2.5+ - op33 param2 == 3 immediately subtracts from SAVEVSWANDS instead of SAVEVSDEATH in the current effect pass |
 	+------------------------------------------------------------------------------------------------------------------------+

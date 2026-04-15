@@ -2241,9 +2241,9 @@ Operations=ADD 7
 Pattern=48894DEF48894DE7
 Operations=ADD 17
 
-[Hook-CGameSprite::CheckCombatStatsWeapon()-ApplyMasterySpeedFactor]
-Pattern=0FBF0D402A2500410FBF9530150000410FBFDC3BCA7D2B
-Operations=ADD 7
+[Hook-CGameSprite::CheckCombatStatsWeapon()-NonZeroWeapProfCall]
+Pattern=448BC7897DBC
+Operations=ADD 10
 
 [Hook-CGameSprite::CheckIfVisible()-FirstInstruction]
 Pattern=B8B8110000
