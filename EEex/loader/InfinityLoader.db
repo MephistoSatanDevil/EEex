@@ -600,9 +600,21 @@ Pattern=48895C240848895424105556574154415541564157488BEC4883EC70
 Pattern=4155415641574883EC304C8BF9
 Operations=ADD -10
 
+[CVidBitmap::Construct]
+Pattern=4C89B6A0470000
+Operations=ADD 8, PUSH, READ DWORD, ADD, ADD 4
+
 [CVidBitmap::GetPixelColor]
 Pattern=574883EC20488BD9418BF9
 Operations=ADD -15
+
+[CVidBitmap::GetPixelValue(int,int)]
+Pattern=418BF8488B8900010000
+Operations=ADD -18
+
+[CVidBitmap::SetResRef]
+Pattern=483B020F84A9000000
+Operations=ADD -43
 
 [CVidFont::GetStringHeight]
 Pattern=48896C24184889742420574883EC30488BF1
@@ -2187,6 +2199,10 @@ Operations=ADD -10
 Pattern=F6472004
 Operations=ADD 25
 
+[Hook-CGameEffectOverrideAnimation::ApplyEffect()-LastParam2Jmp]
+Pattern=4889742420574883EC30488BF1488BFA
+Operations=ADD 40
+
 [Hook-CGameEffectProtectionCircle::ApplyEffect()-AddTail]
 Pattern=488D8E001D0000
 Operations=ADD 17
@@ -2316,6 +2332,10 @@ Operations=ADD 3
 Pattern=41B001EB17
 Operations=ADD 51
 
+[Hook-CGameSprite::OneSwing()-GetAttackFrameType()]
+Pattern=0FB7974C4B0000
+Operations=ADD 121
+
 [Hook-CGameSprite::ProcessEffectList()-AfterListsResolved-1]
 Pattern=837D8C00
 Operations=ADD 20
@@ -2403,6 +2423,10 @@ Operations=ADD -7
 [Hook-CGameSprite::Swing()-CImmunitiesWeapon::OnList()-Ranged]
 Pattern=4D8D6F0CE95E010000
 Operations=ADD 36
+
+[Hook-CGameSprite::Swing()-GetAttackFrameType()]
+Pattern=488983D84A00004439B3A44E0000
+Operations=ADD 75
 
 [Hook-CGameSprite::Swing()-NoCImmunitiesWeaponElseContinue]
 Pattern=418B47484D8D6F0C

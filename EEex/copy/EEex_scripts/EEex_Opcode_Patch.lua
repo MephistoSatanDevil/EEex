@@ -574,6 +574,56 @@
 	)
 
 	--[[
+	+------------------------------------------------------------------------------------------------------+
+	| Opcode #342                                                                                          |
+	+------------------------------------------------------------------------------------------------------+
+	|   param2 == 5  -> Override `combat_round_<param1>` in animation INI to `resource`:                   |
+	|       param1   -> Combat round slot                                                                  |
+	|       resource -> Resref of RNDBASE*-like .BMP                                                       |
+	+------------------------------------------------------------------------------------------------------+
+	|   [EEex.dll] EEex::Opcode_Hook_Op342_OnUnhandledParam2(pEffect: CGameEffect*, pSprite: CGameSprite*) |
+	|                                                                                                      |
+	|   [EEex.dll] EEex::Sprite_Hook_OnGetAttackFrameType(pSprite: CGameSprite*, numAttacks: byte) -> byte |
+	|       return: Palette index of fetched pixel in RNDBASE*-like .BMP                                   |
+	+------------------------------------------------------------------------------------------------------+
+	--]]
+
+	EEex_HookConditionalJumpOnSuccessWithLabels(EEex_Label("Hook-CGameEffectOverrideAnimation::ApplyEffect()-LastParam2Jmp"), 0, {
+		{"hook_integrity_watchdog_ignore_registers", {
+			EEex_HookIntegrityWatchdogRegister.RAX, EEex_HookIntegrityWatchdogRegister.RCX, EEex_HookIntegrityWatchdogRegister.RDX,
+			EEex_HookIntegrityWatchdogRegister.R8,  EEex_HookIntegrityWatchdogRegister.R9,  EEex_HookIntegrityWatchdogRegister.R10,
+			EEex_HookIntegrityWatchdogRegister.R11
+		}}},
+		EEex_FlattenTable({
+			{[[
+				mov rcx, rsi                                       ; pEffect
+				mov rdx, rdi                                       ; pSprite
+				call #L(EEex::Opcode_Hook_Op342_OnUnhandledParam2)
+			]]},
+		})
+	)
+
+	local patchGetAttackFrameType = function(label, spriteRegister)
+		EEex_HookNOPsWithLabels(EEex_Label(label), 1, {
+			{"hook_integrity_watchdog_ignore_registers", {
+				EEex_HookIntegrityWatchdogRegister.RAX, EEex_HookIntegrityWatchdogRegister.RCX, EEex_HookIntegrityWatchdogRegister.RDX,
+				EEex_HookIntegrityWatchdogRegister.R8,  EEex_HookIntegrityWatchdogRegister.R9,  EEex_HookIntegrityWatchdogRegister.R10,
+				EEex_HookIntegrityWatchdogRegister.R11
+			}}},
+			EEex_FlattenTable({
+				{[[
+					mov rcx, #$(1) ]], {spriteRegister}, [[ #ENDL   ; pSprite
+																	; dl already numAttacks
+					call #L(EEex::Sprite_Hook_OnGetAttackFrameType)
+				]]},
+			})
+		)
+	end
+
+	patchGetAttackFrameType("Hook-CGameSprite::OneSwing()-GetAttackFrameType()", "rdi")
+	patchGetAttackFrameType("Hook-CGameSprite::Swing()-GetAttackFrameType()", "rbx")
+
+	--[[
 	+------------------------------------------------------------------------------------------------+
 	| Allow saving throw BIT23 to bypass opcode #101                                                 |
 	+------------------------------------------------------------------------------------------------+
