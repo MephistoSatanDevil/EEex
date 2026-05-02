@@ -594,13 +594,11 @@
 			EEex_HookIntegrityWatchdogRegister.R8,  EEex_HookIntegrityWatchdogRegister.R9,  EEex_HookIntegrityWatchdogRegister.R10,
 			EEex_HookIntegrityWatchdogRegister.R11
 		}}},
-		EEex_FlattenTable({
-			{[[
-				mov rcx, rsi                                       ; pEffect
-				mov rdx, rdi                                       ; pSprite
-				call #L(EEex::Opcode_Hook_Op342_OnUnhandledParam2)
-			]]},
-		})
+		{[[
+			mov rcx, rsi                                       ; pEffect
+			mov rdx, rdi                                       ; pSprite
+			call #L(EEex::Opcode_Hook_Op342_OnUnhandledParam2)
+		]]}
 	)
 
 	local patchGetAttackFrameType = function(label, spriteRegister)
@@ -610,13 +608,11 @@
 				EEex_HookIntegrityWatchdogRegister.R8,  EEex_HookIntegrityWatchdogRegister.R9,  EEex_HookIntegrityWatchdogRegister.R10,
 				EEex_HookIntegrityWatchdogRegister.R11
 			}}},
-			EEex_FlattenTable({
-				{[[
-					mov rcx, #$(1) ]], {spriteRegister}, [[ #ENDL   ; pSprite
-																	; dl already numAttacks
-					call #L(EEex::Sprite_Hook_OnGetAttackFrameType)
-				]]},
-			})
+			{[[
+				mov rcx, #$(1) ]], {spriteRegister}, [[ #ENDL   ; pSprite
+																; dl already numAttacks
+				call #L(EEex::Sprite_Hook_OnGetAttackFrameType)
+			]]}
 		)
 	end
 

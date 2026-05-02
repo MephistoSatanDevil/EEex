@@ -604,6 +604,10 @@ Operations=ADD -10
 Pattern=4C89B6A0470000
 Operations=ADD 8, PUSH, READ DWORD, ADD, ADD 4
 
+[CVidBitmap::Destruct]
+Pattern=488D8EC8010000488B5C2440
+Operations=ADD -16, PUSH, READ DWORD, ADD, ADD 4
+
 [CVidBitmap::GetPixelColor]
 Pattern=574883EC20488BD9418BF9
 Operations=ADD -15
