@@ -38,16 +38,19 @@
 		EEex_EnableCodeProtection()
 	end
 
-	EEex_HookAfterCall(EEex_Label("Hook-dimmInit()-uiLoadFunctions()"), EEex_FlattenTable({
-		{[[
-			#MAKE_SHADOW_SPACE(32)
-		]]},
-		EEex_GenLuaCall("EEex_EngineLua_OnUIFunctionsLoaded"),
-		{[[
-			call_error:
-			#DESTROY_SHADOW_SPACE
-		]]},
-	}))
+	EEex_HookAfterCallWithLabels(EEex_Label("Hook-dimmInit()-uiLoadFunctions()"), {
+		{"hook_integrity_watchdog_ignore_registers", {EEex_HookIntegrityWatchdogRegister.RAX}}},
+		EEex_FlattenTable({
+			{[[
+				#MAKE_SHADOW_SPACE(32)
+			]]},
+			EEex_GenLuaCall("EEex_EngineLua_OnUIFunctionsLoaded"),
+			{[[
+				call_error:
+				#DESTROY_SHADOW_SPACE
+			]]},
+		})
+	)
 
 	-- Disable backup INI processing, (runs if Baldur.lua had a syntax / runtime error), to prevent crash
 	-- due to the above stdio redirects for INI processing. The backup processing appears to parse
