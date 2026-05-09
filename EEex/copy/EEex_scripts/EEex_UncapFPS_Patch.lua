@@ -299,6 +299,16 @@
 
 	EEex_JITAt(EEex_Label("Hook-CVidTile::RenderTexture()-FirstInstruction"), {"jmp #L(CVidTile::Override_RenderTexture)"})
 
+	--[[
+	+--------------------------------------------------------------------------------------------------------------------------------+
+	| Fix open delay of UI tooltips with uncapped fps. Note: This does not normalize world tooltips, which run against the AI speed. |
+	+--------------------------------------------------------------------------------------------------------------------------------+
+	|   [EEex.dll] EEex::Override_uiDrawMenuStack()                                                                                  |
+	+--------------------------------------------------------------------------------------------------------------------------------+
+	--]]
+
+	EEex_JITAt(EEex_Label("Hook-uiDrawMenuStack()-FirstInstruction"), {"jmp #L(EEex::Override_uiDrawMenuStack)"})
+
 	EEex_EnableCodeProtection()
 
 end)()

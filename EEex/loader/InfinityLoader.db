@@ -774,6 +774,14 @@ Operations=ADD 7, PUSH, READ DWORD, ADD, ADD 4
 Pattern=4585C9747D
 Operations=ADD 15, PUSH, READ DWORD, ADD, ADD 4
 
+[fingerDown]
+Pattern=E967030000
+Operations=ADD 15, PUSH, READ DWORD, ADD, ADD 4
+
+[g_backgroundMenu]
+Pattern=4885C074230F1F840000000000
+Operations=ADD -26, PUSH, READ DWORD, ADD, ADD 4
+
 [g_drawBackend]
 Pattern=8B84248800000089442438
 Operations=ADD -5, PUSH, READ DWORD, ADD, ADD 5
@@ -849,6 +857,10 @@ Operations=ADD -4, PUSH, READ DWORD, ADD, ADD 4, ADD -8
 [slicedRects]
 Pattern=488945EF0F1002
 Operations=ADD 13, PUSH, READ DWORD, ADD, ADD 4
+
+[tooltip]
+Pattern=0F84BA00000033C0
+Operations=ADD 14, PUSH, READ DWORD, ADD, ADD 4
 
 [transition]
 Pattern=4C8BB42440030000
@@ -1385,6 +1397,10 @@ Operations=ADD -20
 [drawLetters]
 Pattern=4C8BDC555356574155
 
+[drawMenu]
+Pattern=488945E048894DB8
+Operations=ADD -24
+
 [drawSlice]
 Pattern=488945F0448B4904
 Operations=ADD -24
@@ -1392,6 +1408,10 @@ Operations=ADD -24
 [drawSliceSide]
 Pattern=488945E7660F6E02
 Operations=ADD -33
+
+[drawTop]
+Pattern=488DAC24B8FDFFFF
+Operations=ADD -4
 
 [eventMenu]
 Pattern=4889702055574154
@@ -1426,6 +1446,10 @@ Pattern=405553565741554156488D6C24D1
 [uiExecLuaInt]
 Pattern=8B7C2430EB04
 Operations=ADD 33, PUSH, READ DWORD, ADD, ADD 4
+
+[uiHandleTooltip]
+Pattern=33FF4885C00F8491000000
+Operations=ADD -38
 
 [uiPop]
 Pattern=48895C2410574883EC20488BF94885C9
@@ -2716,6 +2740,10 @@ Operations=ADD 25
 [Hook-uiDoFile()-FirstInstruction]
 Pattern=48894424304C8BC1
 Operations=ADD -42
+
+[Hook-uiDrawMenuStack()-FirstInstruction]
+Pattern=7414488B8110110000
+Operations=ADD -18
 
 [Hook-uiEventMenuStack()-FirstInstruction]
 Pattern=488BE97424
