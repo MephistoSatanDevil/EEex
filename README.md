@@ -78,6 +78,7 @@ When reporting, please:
   - WeiDU.log — This is in your game directory.
   - A save that exhibits the issue — Saves are found in `C:\Users\<user name>\Documents\<game folder>\save`. Zip the entire save folder.
   - (If applicable) The generated crash .dmp — This is usually found in `C:\Users\<user name>\Documents\Infinity Engine - Enhanced Edition\crash`.
+    - Starting in EEex v1.0.0, crash dumps are instead saved to `<game folder>\InfinityLoader_Crash`.
 - And:
   - Provide a series of steps that reproduce the issue.
 
