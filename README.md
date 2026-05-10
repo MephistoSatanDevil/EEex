@@ -69,7 +69,7 @@ EEex is distributed as a Gibberlings3 installer. After running the setup file, s
 <br>
 
 <h1>Stability</h1>
-While crashes are extremely rare, they may still occur. If you encounter a crash, or a bug with EEex, please report the issue to <a href="https://github.com/Bubb13/EEex/issues">EEex’s GitHub Issues page</a> or <a href="https://forums.beamdog.com/discussion/71798/p1">EEex’s thread on the Beamdog Forums</a>.
+While crashes are extremely rare, they may still occur. If you encounter a crash, or a bug with EEex, please report the issue to <a href="https://github.com/Bubb13/EEex/issues">EEex's GitHub Issues page</a> or <a href="https://www.gibberlings3.net/forums/topic/41254-mod-eeex-v100">EEex's thread on Gibberlings3</a>.
 <br>
 <br>
 
