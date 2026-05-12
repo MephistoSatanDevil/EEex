@@ -1,0 +1,231 @@
+
+menu
+{
+	name "EEex_Options"
+	ignoreEsc
+	modal
+
+	-- The engine won't change the cursor type over templates if there isn't at
+	-- least one "normal" element that occupies an xy of equal or greater value.
+	label
+	{
+		area 0 0 2147483647 2147483647
+		-- opacity ticks right before the menu is rendered, and is better than
+		-- `enabled`, since `enabled` is run in various contexts that might
+		-- disrupt tick routines that expect a steady tick rate.
+		opacity lua "EEex_Options_Private_Tick()"
+	}
+
+	label
+	{
+		name "EEex_Options_Background"
+	}
+
+	list
+	{
+		column
+		{
+			width 100
+			label
+			{
+				area 0 0 -1 36
+				text lua "t(EEex_Options_Private_Tabs[rowNumber].label)"
+				text style "EEex_Options_Normal"
+				text align left center
+				text useFontZoom 0
+			}
+		}
+
+		name "EEex_Options_Sidebar"
+		action "EEex_Options_Private_MainVerticalTabArea:_onTabSelected(EEex_Options_Private_CurrentTab)"
+		actionAlt "EEex_Options_Private_MainVerticalTabArea:_onTabSelected(EEex_Options_Private_CurrentTab)"
+		rowheight 36
+		scrollbar "GUISCRC"
+		scrollbar respectConstraints
+		table "EEex_Options_Private_Tabs"
+		var "EEex_Options_Private_CurrentTab"
+	}
+}
+
+menu
+{
+	name "EEex_Options_Templates"
+
+	template
+	{
+		text
+		{
+			enabled "EEex_Options_Private_TEMPLATE_DelayIcon_Enabled()"
+			bam "X-DELAY"
+			tooltip lua "t('EEex_Options_TRANSLATION_Requires_Restart')"
+			scaleToClip
+		}
+		name "EEex_Options_TEMPLATE_DelayIcon"
+	}
+
+	template
+	{
+		edit
+		{
+			enabled true
+			action "return EEex_Options_Private_TEMPLATE_Edit_Action()"
+			maxlines 1
+			text style "EEex_Options_Edit"
+			text useFontZoom 0
+		}
+		name "EEex_Options_TEMPLATE_Edit"
+	}
+
+	template
+	{
+		text
+		{
+			enabled true
+			fill 112 111 111 64
+			action "EEex_Options_Private_TEMPLATE_EditBackground_Action()"
+			actionAlt "EEex_Options_Private_TEMPLATE_EditBackground_Action()"
+		}
+		name "EEex_Options_TEMPLATE_EditBackground"
+	}
+
+	template
+	{
+		button
+		{
+			enabled true
+			on escape
+			action "EEex_Options_Private_TEMPLATE_ExitButton_Action()"
+			actionAlt "EEex_Options_Private_TEMPLATE_ExitButton_Action()"
+			bam "X-X"
+			tooltip lua "t('EEex_Options_TRANSLATION_Exit')"
+			scaleToClip
+		}
+		name "EEex_Options_TEMPLATE_ExitButton"
+	}
+
+	template
+	{
+		text
+		{
+			enabled true
+			action "EEex_Options_Private_TEMPLATE_KeybindBackground_Action()"
+			actionAlt "EEex_Options_Private_TEMPLATE_KeybindBackground_Action()"
+			fill lua "EEex_Options_Private_TEMPLATE_KeybindBackground_Fill()"
+			text lua "EEex_Options_Private_TEMPLATE_KeybindBackground_Text()"
+			text style "EEex_Options_Normal"
+			text align left center
+			text useFontZoom 0
+			pad 3 3 3 3
+		}
+		name "EEex_Options_TEMPLATE_KeybindBackground"
+	}
+
+	template
+	{
+		button
+		{
+			enabled true
+			action "EEex_Options_Private_TEMPLATE_KeybindButton_Action()"
+			actionAlt "EEex_Options_Private_TEMPLATE_KeybindButton_Action()"
+			bam "X-KEYBND"
+			tooltip lua "EEex_Options_Private_TEMPLATE_KeybindButton_Tooltip()"
+			sequence lua "EEex_Options_Private_TEMPLATE_KeybindButton_Sequence()"
+			scaleToClip
+		}
+		name "EEex_Options_TEMPLATE_KeybindButton"
+	}
+
+	template
+	{
+		button
+		{
+			enabled true
+			action "EEex_Options_Private_TEMPLATE_KeybindButtonUpDown_Action()"
+			actionAlt "EEex_Options_Private_TEMPLATE_KeybindButtonUpDown_Action()"
+			bam "X-KEYBND"
+			tooltip lua "EEex_Options_Private_TEMPLATE_KeybindButtonUpDown_Tooltip()"
+			sequence lua "EEex_Options_Private_TEMPLATE_KeybindButtonUpDown_Sequence()"
+			scaleToClip
+		}
+		name "EEex_Options_TEMPLATE_KeybindButtonUpDown"
+	}
+
+	template
+	{
+		button
+		{
+			enabled true
+			action "EEex_Options_Open()"
+			actionAlt "EEex_Options_Open()"
+			text "EEex_Options_TRANSLATION_EEex_Options"
+			text style "EEex_Options_Button"
+			scaleToClip
+		}
+		name "EEex_Options_TEMPLATE_OpenButton"
+	}
+
+	template
+	{
+		label
+		{
+			enabled true
+			text lua "EEex_Options_Private_TEMPLATE_Text_Text()"
+			text style "EEex_Options_Normal"
+			text color lua "EEex_Options_Private_TEMPLATE_Text_Color()"
+			text useFontZoom 0
+		}
+		name "EEex_Options_TEMPLATE_Text"
+	}
+
+	template
+	{
+		text
+		{
+			enabled true
+			action "EEex_Options_Private_TEMPLATE_TextButton_Action()"
+			actionAlt "EEex_Options_Private_TEMPLATE_TextButton_Action()"
+			text lua "EEex_Options_Private_TEMPLATE_TextButton_Text()"
+			text style "EEex_Options_Normal"
+			text color lua "EEex_Options_Private_TEMPLATE_TextButton_Color()"
+			text useFontZoom 0
+		}
+		name "EEex_Options_TEMPLATE_TextButton"
+	}
+
+	template
+	{
+		button
+		{
+			enabled true
+			action "EEex_Options_Private_TEMPLATE_Toggle_Action()"
+			bam "ROUNDBUT"
+			frame lua "EEex_Options_Private_TEMPLATE_Toggle_Frame()"
+			scaleToClip
+		}
+		name "EEex_Options_TEMPLATE_Toggle"
+	}
+
+	template
+	{
+		label
+		{
+			enabled true
+			fill lua "EEex_Options_Private_TEMPLATE_Separator_Fill()"
+		}
+		name "EEex_Options_TEMPLATE_Separator"
+	}
+
+	template
+	{
+		text
+		{
+			enabled true
+			text lua "EEex_Options_Private_TEMPLATE_TextArea_Text()"
+			text style "EEex_Options_Normal"
+			text useFontZoom 0
+			scrollbar "GUISCRC"
+			scrollbar respectConstraints
+		}
+		name "EEex_Options_TEMPLATE_TextArea"
+	}
+}

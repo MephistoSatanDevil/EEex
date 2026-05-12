@@ -69,7 +69,7 @@ EEex is distributed as a Gibberlings3 installer. After running the setup file, s
 <br>
 
 <h1>Stability</h1>
-While crashes are extremely rare, they may still occur. If you encounter a crash, or a bug with EEex, please report the issue to <a href="https://github.com/Bubb13/EEex/issues">EEex’s GitHub Issues page</a> or <a href="https://forums.beamdog.com/discussion/71798/p1">EEex’s thread on the Beamdog Forums</a>.
+While crashes are extremely rare, they may still occur. If you encounter a crash, or a bug with EEex, please report the issue to <a href="https://github.com/Bubb13/EEex/issues">EEex's GitHub Issues page</a> or <a href="https://www.gibberlings3.net/forums/topic/41254-mod-eeex-v100">EEex's thread on Gibberlings3</a>.
 <br>
 <br>
 
@@ -78,6 +78,7 @@ When reporting, please:
   - WeiDU.log — This is in your game directory.
   - A save that exhibits the issue — Saves are found in `C:\Users\<user name>\Documents\<game folder>\save`. Zip the entire save folder.
   - (If applicable) The generated crash .dmp — This is usually found in `C:\Users\<user name>\Documents\Infinity Engine - Enhanced Edition\crash`.
+    - Starting in EEex v1.0.0, crash dumps are instead saved to `<game folder>\InfinityLoader_Crash`.
 - And:
   - Provide a series of steps that reproduce the issue.
 
